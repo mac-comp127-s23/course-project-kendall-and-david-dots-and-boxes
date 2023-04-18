@@ -16,11 +16,15 @@ public class DotsandBoxes {
                 Ellipse dots = new Ellipse((CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, dotsize, dotsize);
                 canvas.add(dots);
                 if (i < numberofdots - 1 && j < numberofdots - 1) {
-                    Boxes box = new Boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, boxsize, boxsize);
+                    boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, boxsize, boxsize);
                 }
             }
         }
     }
+
+
+
+
 
     public static void main(String[] args) {
         new DotsandBoxes();
