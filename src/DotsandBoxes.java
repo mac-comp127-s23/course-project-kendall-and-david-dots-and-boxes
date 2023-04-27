@@ -13,6 +13,7 @@ public class DotsandBoxes {
     private double dotsize = 5;
     private int numberofdots = 6;
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
+    public static ArrayList<boxes> boxeslist = new ArrayList<>();
 
     private int turn = 0;
     private int p1Points = 0;
@@ -48,6 +49,7 @@ public class DotsandBoxes {
                 canvas.add(dots);
                 if (i < numberofdots - 1 && j < numberofdots - 1) {
                     boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
+                    boxeslist.add(box);
                 }
             }
         }

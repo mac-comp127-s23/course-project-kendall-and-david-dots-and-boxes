@@ -1,12 +1,7 @@
 import edu.macalester.graphics.*;
 
 import java.awt.Color;
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
-
-import javax.swing.tree.DefaultTreeSelectionModel;
-
-import org.w3c.dom.events.Event;
 
 public class Lines {
     private Lines line;
@@ -34,8 +29,15 @@ public class Lines {
         dot.setFillColor(Color.RED);
         if (dotListselected.size() == 2){
             if (detection(dotListselected)){
-                Line line= new Line(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter());
-                canvas.add(line);
+                // //
+                // Line line= new Line(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter());
+                // canvas.add(line);
+                // I'm wondering how to locate two boxes with a line or two points(Since boxes are overlapped, for each line, there will two overlapped boxes)
+                // After locate the box, I can adjust the color of the line. And if you have no idea, there is an aleternative way to complete the boxes class:
+                // don't draw any box at the start after the game, and add line to the boxes each time.
+                ArrayList<boxes> boxshouldcolor = new ArrayList<>();
+                boxshouldcolor = boxes.boxshouldcolor();
+                boxes.colorbox(boxshouldcolor,canvas);
             }
             for (Ellipse p: dotListselected){
                 p.setFillColor(Color.WHITE);
