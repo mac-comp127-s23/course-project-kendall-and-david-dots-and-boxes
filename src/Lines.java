@@ -8,6 +8,7 @@ public class Lines {
     public final static double boxsize = 30;
     public static CanvasWindow canvas;
     private static ArrayList<Ellipse> dotListselected = new ArrayList<>();
+    public static Point linedetect;
     
     public Lines(Point p1, Point p2){
         this.line = new Lines(p1, p2);
@@ -17,7 +18,6 @@ public class Lines {
     public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots, ArrayList<boxes> boxeslist){    
         canvas.onClick(Event -> {
             GraphicsObject dot = canvas.getElementAt(Event.getPosition());
-            System.out.println(Event.getPosition());
             if(dot instanceof Ellipse){
                 dotslected((Ellipse)dot, canvas, boxeslist);
         };
@@ -30,10 +30,7 @@ public class Lines {
         dot.setFillColor(Color.RED);
         if (dotListselected.size() == 2){
             if (detection(dotListselected)){
-                Line line= new Line(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter());
-                canvas.add(line);
-                canvas.draw();
-                System.out.print(canvas.getElementAt(line.getCenter().getX(), line.getCenter().getY()));
+                drawline(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter(), canvas);
                 ArrayList<boxes> boxshouldcolor = new ArrayList<>();
                 boxshouldcolor = boxes.boxshouldcolor(canvas, boxeslist);
                 boxes.colorbox(boxshouldcolor,canvas);
@@ -45,6 +42,13 @@ public class Lines {
             
         }
 
+    }
+
+    private static void drawline(Point p1, Point p2, CanvasWindow canvas){
+        Line line= new Line(p1, p2);
+        canvas.add(line);
+        canvas.draw();
+        linedetect = new Point(line.getCenter().getX(), line.getCenter().getY());
     }
 
     private static boolean detection(ArrayList<Ellipse> dotlist){
