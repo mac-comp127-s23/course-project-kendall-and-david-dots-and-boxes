@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.lang.model.util.ElementScanner14;
+import javax.security.auth.RefreshFailedException;
 import javax.sound.sampled.Port;
 
 import org.w3c.dom.events.Event;
@@ -12,44 +13,55 @@ import org.w3c.dom.events.Event;
 
 
 public class boxes {
-    public CanvasWindow canvas;
     private final static double boxsize = 30;
-    private Line up, down, left, right;
-    private GraphicsGroup boxshape;
     private Point leftupcorner;
+    private Point rightdowncorner;
+    private double updetX, downdetX, leftdetX, rightdetX;
+    private double updetY, downdetY, leftdetY, rightdetY;
 
-    private static ArrayList<Color> detectionlList;
+
+    private static ArrayList<Object> detectionlList;
     
 
     public boxes(CanvasWindow canvas, double x, double y, double width, double height) {
-        this.leftupcorner = new Point((int)x, (int)y);
-        this.boxshape = new GraphicsGroup(x, y);
-        this.up = new Line(0, 0, boxsize, 0 );
-        this.down = new Line(0, boxsize, boxsize, boxsize);
-        this.left = new Line(0, 0, 0, boxsize);
-        this.right = new Line(boxsize, 0, boxsize, boxsize);
+        this.updetX = x + width/2;
+        this.downdetX = x + width/2;
+        this.leftdetX = x;
+        this.rightdetX = x + width;
+        this.updetY = y;
+        this.downdetY = y + height;
+        this.leftdetY = y + height/2;
+        this.rightdetY = y + height/2;
 
-        boxshape.add(up);
-        boxshape.add(down);
-        boxshape.add(left);
-        boxshape.add(right);
-        canvas.add(boxshape, x, y);
         
         boxes.detectionlList = new ArrayList<>();
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-
-        //rect.setFillColor(Color.white);
-
     }
 
-    // public static void setlinecolor(Point p1, Point p2){
-        
-    // }
+    
+    private static void refreshdetectionlist(CanvasWindow canvas, boxes box){
+        detectionlList.clear();
+        if (canvas.getElementAt(box.updetX,box.updetY)!= null){
+            System.out.print(1);
+            detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        }
 
-    private ArrayList<Color> getcolorlist(){
+        if (canvas.getElementAt(box.updetX,box.updetY)!= null){
+            System.out.print(1);
+            detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        }
+
+        if (canvas.getElementAt(box.updetX,box.updetY) != null){
+            System.out.print(1);
+            detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        }
+
+        if (canvas.getElementAt(box.updetX,box.updetY) != null){
+            System.out.print(1);
+            detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        }
+    }
+
+    private ArrayList<Object> getcolorlist(){
         return detectionlList;
     }
 
@@ -57,23 +69,24 @@ public class boxes {
         return leftupcorner;
     }
 
+    private Point getrighdowncorner(){
+        return rightdowncorner;
+    }
+    
+
     private static boolean isFilled(boxes box) {
-        ArrayList<Color> local = box.getcolorlist();
-        for (Color color : local) {
-            if (color.equals(Color.black)) {
-                return false;
-            }
+        if(box.getcolorlist().size()!=4){
+            return false;
         }
         return true;
     }
 
-    public static ArrayList<boxes> boxshouldcolor(){
+    public static ArrayList<boxes> boxshouldcolor(CanvasWindow canvas, ArrayList<boxes> boxeslist){
         ArrayList<boxes> boxesshouldcolor = new ArrayList<>();
-        for(boxes box : DotsandBoxes.boxeslist){
+        for(boxes box : boxeslist){
+            refreshdetectionlist(canvas, box);
             if (isFilled(box) == true){
-                System.out.print(1);
                 boxesshouldcolor.add(box);
-                DotsandBoxes.boxeslist.remove(box);
             }
         }
         return boxesshouldcolor;
@@ -88,7 +101,6 @@ public class boxes {
             }
         }
     }
-
 
 
 }
