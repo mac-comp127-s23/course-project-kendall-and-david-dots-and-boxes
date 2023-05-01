@@ -47,10 +47,10 @@ public class DotsandBoxes {
                 Ellipse dots = new Ellipse((CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, dotsize, dotsize);
                 dotsList.add(dots);
                 canvas.add(dots);
-                if (i < numberofdots - 1 && j < numberofdots - 1) {
-                    boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
-                    boxeslist.add(box);
-                }
+                // if (i < numberofdots - 1 && j < numberofdots - 1) {
+                //     boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
+                //     boxeslist.add(box);
+                // }
             }
         }
         Lines.clickonboard(canvas, dotsList);
