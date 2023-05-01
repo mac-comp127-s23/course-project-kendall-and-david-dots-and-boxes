@@ -8,35 +8,31 @@ public class Lines {
     public final static double boxsize = 30;
     public static CanvasWindow canvas;
     private static ArrayList<Ellipse> dotListselected = new ArrayList<>();
+    public static Point linedetect;
     
     public Lines(Point p1, Point p2){
         this.line = new Lines(p1, p2);
     }
 
 
-    public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots){    
+    public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots, ArrayList<boxes> boxeslist){    
         canvas.onClick(Event -> {
             GraphicsObject dot = canvas.getElementAt(Event.getPosition());
             if(dot instanceof Ellipse){
-                dotslected((Ellipse)dot, canvas);
+                dotslected((Ellipse)dot, canvas, boxeslist);
         };
         });
     }
 
 
-    public static void dotslected(Ellipse dot, CanvasWindow canvas){
+    public static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<boxes> boxeslist){
         dotListselected.add(dot);
         dot.setFillColor(Color.RED);
         if (dotListselected.size() == 2){
             if (detection(dotListselected)){
-                // //
-                Line line= new Line(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter());
-                canvas.add(line);
-                // I'm wondering how to locate two boxes with a line or two points(Since boxes are overlapped, for each line, there will two overlapped boxes)
-                // After locate the box, I can adjust the color of the line. And if you have no idea, there is an aleternative way to complete the boxes class:
-                // don't draw any box at the start after the game, and add line to the boxes each time.
+                drawline(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter(), canvas);
                 ArrayList<boxes> boxshouldcolor = new ArrayList<>();
-                boxshouldcolor = boxes.boxshouldcolor();
+                boxshouldcolor = boxes.boxshouldcolor(canvas, boxeslist);
                 boxes.colorbox(boxshouldcolor,canvas);
             }
             for (Ellipse p: dotListselected){
@@ -46,6 +42,13 @@ public class Lines {
             
         }
 
+    }
+
+    private static void drawline(Point p1, Point p2, CanvasWindow canvas){
+        Line line= new Line(p1, p2);
+        canvas.add(line);
+        canvas.draw();
+        linedetect = new Point(line.getCenter().getX(), line.getCenter().getY());
     }
 
     private static boolean detection(ArrayList<Ellipse> dotlist){
@@ -59,6 +62,7 @@ public class Lines {
             return false;
         }
     }
+
 
 }
 

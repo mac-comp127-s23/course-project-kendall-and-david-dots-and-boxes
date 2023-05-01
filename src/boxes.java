@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.lang.model.util.ElementScanner14;
+import javax.security.auth.RefreshFailedException;
 import javax.sound.sampled.Port;
 
 import org.w3c.dom.events.Event;
@@ -12,83 +13,117 @@ import org.w3c.dom.events.Event;
 
 
 public class boxes {
-    public CanvasWindow canvas;
     private final static double boxsize = 30;
-    private Line up, down, left, right;
-    private GraphicsGroup boxshape;
-    private Point leftupcorner;
+    private edu.macalester.graphics.Point leftupcorner;
 
-    private static ArrayList<Color> detectionlList;
+    private edu.macalester.graphics.Point updetX, downdetX, leftdetX, rightdetX, rightdowncorner;
+
+
+    private ArrayList<Object> detectionlList;
     
 
     public boxes(CanvasWindow canvas, double x, double y, double width, double height) {
-        this.leftupcorner = new Point((int)x, (int)y);
-        this.boxshape = new GraphicsGroup(x, y);
-        this.up = new Line(0, 0, boxsize, 0 );
-        this.down = new Line(0, boxsize, boxsize, boxsize);
-        this.left = new Line(0, 0, 0, boxsize);
-        this.right = new Line(boxsize, 0, boxsize, boxsize);
-
-        boxshape.add(up);
-        boxshape.add(down);
-        boxshape.add(left);
-        boxshape.add(right);
-        canvas.add(boxshape, x, y);
+        this.leftupcorner = new edu.macalester.graphics.Point(x, y);
+        this.updetX = new edu.macalester.graphics.Point(x + width/2, y) ;
+        this.downdetX = new edu.macalester.graphics.Point(x + width/2, y + height);
+        this.leftdetX = new edu.macalester.graphics.Point(x, y + height/2);
+        this.rightdetX = new edu.macalester.graphics.Point(x + width,y + height/2);
         
-        boxes.detectionlList = new ArrayList<>();
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-        detectionlList.add((Color)up.getStrokeColor());
-
-        //rect.setFillColor(Color.white);
-
+        this.detectionlList = new ArrayList<>();
     }
 
-    // public static void setlinecolor(Point p1, Point p2){
-        
-    // }
+    
+    private static void refreshdetectionlist(CanvasWindow canvas, boxes box){
+        edu.macalester.graphics.Point p = Lines.linedetect;
+        // System.out.println(box.updetX);
+        // System.out.println(box.downdetX);
+        // System.out.println(box.leftdetX);
+        // System.out.println(box.rightdetX);
+        if (p.equals(box.updetX)){
+            System.out.print("a"); //help for test, you can ignore or delete it
+            addelement(box);
+        }
+        if (p.equals(box.downdetX)){
+            System.out.print("b");
+            addelement(box);
+        }
+        if (p.equals(box.leftdetX)){
+            System.out.print("c");
+            addelement(box);
+        }
+        if (p.equals(box.rightdetX)){
+            System.out.print("d");
+            addelement(box);
+        }
+        // if (canvas.getElementAt(box.updetX,box.updetY)!= null){
+        //     System.out.print(1);
+        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        // }
 
-    private ArrayList<Color> getcolorlist(){
+        // if (canvas.getElementAt(box.updetX,box.updetY)!= null){
+        //     System.out.print(1);
+        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        // }
+
+        // if (canvas.getElementAt(box.updetX,box.updetY) != null){
+        //     System.out.print(1);
+        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        // }
+
+        // if (canvas.getElementAt(box.updetX,box.updetY) != null){
+        //     System.out.print(1);
+        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
+        // }
+    }
+
+    private static void addelement(boxes box){
+        box.getcolorlist().add("1");
+    }
+
+    private ArrayList<Object> getcolorlist(){
         return detectionlList;
     }
 
-    private Point getleftupcorner(){
+    private edu.macalester.graphics.Point getleftupcorner(){
         return leftupcorner;
     }
 
+    private edu.macalester.graphics.Point getrighdowncorner(){
+        return rightdowncorner;
+    }
+    
+
     private static boolean isFilled(boxes box) {
-        ArrayList<Color> local = box.getcolorlist();
-        for (Color color : local) {
-            if (color.equals(Color.black)) {
-                return false;
-            }
+        if(box.getcolorlist().size()!=4){
+            return false;
         }
         return true;
     }
 
-    public static ArrayList<boxes> boxshouldcolor(){
+    public static ArrayList<boxes> boxshouldcolor(CanvasWindow canvas, ArrayList<boxes> boxeslist){
         ArrayList<boxes> boxesshouldcolor = new ArrayList<>();
-        for(boxes box : DotsandBoxes.boxeslist){
-            if (isFilled(box) == true){
-                System.out.print(1);
+        for(boxes box : boxeslist){
+            refreshdetectionlist(canvas, box);
+            System.out.println(box.getcolorlist());
+            if (isFilled(box)){
                 boxesshouldcolor.add(box);
-                DotsandBoxes.boxeslist.remove(box);
             }
         }
+        
         return boxesshouldcolor;
     }
 
     public static void colorbox(ArrayList<boxes> boxesshouldcolor, CanvasWindow canvas){
         if (boxesshouldcolor != null){
             for(boxes box: boxesshouldcolor){
-                Point leftupcorner = box.getleftupcorner();
+                edu.macalester.graphics.Point leftupcorner = box.getleftupcorner();
                 Rectangle colorbox = new Rectangle(leftupcorner.getX(), leftupcorner.getY(), boxsize, boxsize);
+                colorbox.setFillColor(Color.red);
                 canvas.add(colorbox);
             }
+        boxesshouldcolor.clear();
         }
     }
-
 
 
 }

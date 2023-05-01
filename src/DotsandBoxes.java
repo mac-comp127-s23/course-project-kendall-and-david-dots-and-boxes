@@ -14,6 +14,7 @@ public class DotsandBoxes {
     private int numberofdots = 6;
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
     public static ArrayList<boxes> boxeslist = new ArrayList<>();
+    public static CanvasWindow canvas;
 
     private int turn = 0;
     private int p1Points = 0;
@@ -53,7 +54,7 @@ public class DotsandBoxes {
                 // }
             }
         }
-        Lines.clickonboard(canvas, dotsList);
+        Lines.clickonboard(canvas, dotsList, boxeslist);
     }
 
     
