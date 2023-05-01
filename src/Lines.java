@@ -10,6 +10,9 @@ public class Lines {
     private static ArrayList<Ellipse> dotListselected = new ArrayList<>();
     public static Point linedetect;
     
+    private static Color p1Color = Color.RED;
+    private static Color p2Color = Color.BLUE;
+    
     public Lines(Point p1, Point p2){
         this.line = new Lines(p1, p2);
     }
@@ -20,7 +23,14 @@ public class Lines {
             GraphicsObject dot = canvas.getElementAt(Event.getPosition());
             if(dot instanceof Ellipse){
                 dotslected((Ellipse)dot, canvas, boxeslist);
-        };
+            };
+            DotsandBoxes.setPointsText();
+            if (DotsandBoxes.boxeslist.size() == 0) {
+                canvas.removeAll();
+                GraphicsText win = new GraphicsText("you won", 10, 20);
+                win.setPosition(100, 100);
+                canvas.add(win);
+            }
         });
     }
 
@@ -46,6 +56,13 @@ public class Lines {
 
     private static void drawline(Point p1, Point p2, CanvasWindow canvas){
         Line line= new Line(p1, p2);
+        if (DotsandBoxes.getTurnValue() == 1) {
+            line.setStrokeColor(p1Color);
+            DotsandBoxes.changeTurnValue();
+        } else {
+            line.setStrokeColor(p2Color);
+            DotsandBoxes.changeTurnValue();
+        }
         canvas.add(line);
         canvas.draw();
         linedetect = new Point(line.getCenter().getX(), line.getCenter().getY());

@@ -16,9 +16,12 @@ public class DotsandBoxes {
     public static ArrayList<boxes> boxeslist = new ArrayList<>();
     public static CanvasWindow canvas;
 
-    private int turn = 0;
-    private int p1Points = 0;
-    private int p2Points = 0;
+    private static int turn = 1;
+    private static int p1Points = 0;
+    private static int p2Points = 0;
+
+    private static GraphicsText points1Text;
+    private static GraphicsText points2Text;
     
 
     private DotsandBoxes(){
@@ -35,11 +38,11 @@ public class DotsandBoxes {
         player2.setPosition(10, player1.getY() + player1.getHeight() + 10);
         canvas.add(player2);
 
-        GraphicsText points1Text = new GraphicsText("Points: " + p1Points, 10, 20);
+        points1Text = new GraphicsText("Points: " + p1Points, 10, 20);
         points1Text.setPosition(player1.getWidth() + 60, 20);
         canvas.add(points1Text);
 
-        GraphicsText points2Text = new GraphicsText("Points: " + p2Points, 10, 20);
+        points2Text = new GraphicsText("Points: " + p2Points, 10, 20);
         points2Text.setPosition(player1.getWidth() + 60, player1.getY() + player1.getHeight() + 10);
         canvas.add(points2Text);
         
@@ -48,10 +51,10 @@ public class DotsandBoxes {
                 Ellipse dots = new Ellipse((CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, dotsize, dotsize);
                 dotsList.add(dots);
                 canvas.add(dots);
-                // if (i < numberofdots - 1 && j < numberofdots - 1) {
-                //     boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
-                //     boxeslist.add(box);
-                // }
+                if (i < numberofdots - 1 && j < numberofdots - 1) {
+                    boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
+                    boxeslist.add(box);
+                }
             }
         }
         Lines.clickonboard(canvas, dotsList, boxeslist);
@@ -74,6 +77,28 @@ public class DotsandBoxes {
     public static void main(String[] args) {
         new DotsandBoxes();
        
+    }
+
+    public static int getTurnValue() {
+        return turn;
+    }
+
+    public static int changeTurnValue() {
+        turn = -turn;
+        return turn;
+    }
+
+    public static void setP1Points() {
+        p1Points += 1;
+    }
+
+    public static void setP2Points() {
+        p2Points += 1;
+    }
+
+    public static void setPointsText() {
+        points1Text.setText("Points: " + p1Points);
+        points2Text.setText("Points: " + p2Points);
     }
     
 }

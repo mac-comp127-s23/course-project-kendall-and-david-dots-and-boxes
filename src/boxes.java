@@ -21,6 +21,8 @@ public class boxes {
 
     private ArrayList<Object> detectionlList;
     
+    private static Color p1Color = Color.RED;
+    private static Color p2Color = Color.BLUE;
 
     public boxes(CanvasWindow canvas, double x, double y, double width, double height) {
         this.leftupcorner = new edu.macalester.graphics.Point(x, y);
@@ -106,6 +108,7 @@ public class boxes {
             refreshdetectionlist(canvas, box);
             System.out.println(box.getcolorlist());
             if (isFilled(box)){
+                DotsandBoxes.changeTurnValue();
                 boxesshouldcolor.add(box);
             }
         }
@@ -113,14 +116,28 @@ public class boxes {
         return boxesshouldcolor;
     }
 
+    public static void deleteBox(ArrayList<boxes> boxesList, ArrayList<boxes> boxesList2) {
+        for (boxes box : boxesList2) {
+            boxesList.remove(box);
+        }
+    }
+
     public static void colorbox(ArrayList<boxes> boxesshouldcolor, CanvasWindow canvas){
         if (boxesshouldcolor != null){
             for(boxes box: boxesshouldcolor){
                 edu.macalester.graphics.Point leftupcorner = box.getleftupcorner();
                 Rectangle colorbox = new Rectangle(leftupcorner.getX(), leftupcorner.getY(), boxsize, boxsize);
-                colorbox.setFillColor(Color.red);
+                if (DotsandBoxes.getTurnValue() == 1) {
+                    colorbox.setFillColor(p1Color);
+                    DotsandBoxes.setP1Points();
+                } else {
+                    colorbox.setFillColor(p2Color);
+                    DotsandBoxes.setP2Points();
+                }
                 canvas.add(colorbox);
+                
             }
+        deleteBox(DotsandBoxes.boxeslist, boxesshouldcolor);
         boxesshouldcolor.clear();
         }
     }
