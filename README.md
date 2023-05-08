@@ -1,5 +1,3 @@
-# Project Title Goes Here
-
 Dots and Boxes
 
 Names of the team members: Zhaolong Deng, Kendall Sullivan
