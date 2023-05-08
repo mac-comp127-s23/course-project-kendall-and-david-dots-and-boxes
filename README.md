@@ -1,4 +1,4 @@
-Dots and Boxes
+##Dots and Boxes
 
 Names of the team members: Zhaolong Deng, Kendall Sullivan
 
