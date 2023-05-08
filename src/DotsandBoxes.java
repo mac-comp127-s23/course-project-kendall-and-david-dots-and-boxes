@@ -1,5 +1,4 @@
 import edu.macalester.graphics.*;
-import edu.macalester.graphics.ui.TextField;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public class DotsandBoxes {
     private static final int CANVAS_HEIGHT = 500;
     private final double boxsize = 30;
     private double dotsize = 5;
-    private int numberofdots = 6;
+    private static int numberofdots = 2; // 6
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
     public static ArrayList<boxes> boxeslist = new ArrayList<>();
     public static CanvasWindow canvas;
@@ -22,29 +21,44 @@ public class DotsandBoxes {
 
     private static GraphicsText points1Text;
     private static GraphicsText points2Text;
+
+    private static Color p1Color = Color.RED;
+    private static Color p2Color = Color.BLUE;
+
+
+    private static String player1Name = playerOneName();
+    private static String player2Name = playerTwoName();
+    
+    private static GraphicsText turnText;
     
 
     private DotsandBoxes(){
-        String player1Name = playerOneName();
-        String player2Name = playerTwoName();
-
         CanvasWindow canvas = new CanvasWindow("Dots & Boxes", CANVAS_WIDTH, CANVAS_HEIGHT);
 
         GraphicsText player1 = new GraphicsText("Player 1: " + player1Name, 10, 20);
         player1.setPosition(10, 20);
+        player1.setFillColor(p1Color);
         canvas.add(player1);
 
         GraphicsText player2 = new GraphicsText("Player 2: " + player2Name, 10, 20);
         player2.setPosition(10, player1.getY() + player1.getHeight() + 10);
+        player2.setFillColor(p2Color);
         canvas.add(player2);
 
         points1Text = new GraphicsText("Points: " + p1Points, 10, 20);
         points1Text.setPosition(player1.getWidth() + 60, 20);
+        points1Text.setFillColor(p1Color);
         canvas.add(points1Text);
 
         points2Text = new GraphicsText("Points: " + p2Points, 10, 20);
         points2Text.setPosition(player1.getWidth() + 60, player1.getY() + player1.getHeight() + 10);
+        points2Text.setFillColor(p2Color);
         canvas.add(points2Text);
+
+        turnText = new GraphicsText("It's " + player1Name + "'s turn", 10, 20);
+        turnText.setPosition(CANVAS_WIDTH/2 - turnText.getWidth()/2, 350);
+        turnText.setFillColor(p1Color);
+        canvas.add(turnText);
         
         for (int i = 0; i < numberofdots; i++ ){
             for (int j = 0; j < numberofdots ; j++){
@@ -73,10 +87,17 @@ public class DotsandBoxes {
         return scanner.nextLine();
     }
 
-
-    public static void main(String[] args) {
-        new DotsandBoxes();
-       
+    public static int checkWin() {
+        if (p1Points + p2Points == (numberofdots-1) * (numberofdots-1)) {
+            if (p1Points > p2Points) {
+                return p1Points;
+            } else if (p1Points < p2Points) {
+                return p2Points;
+            } else if (p1Points == p2Points) {
+                return p1Points - p2Points;
+            }
+        }
+        return 1;
     }
 
     public static int getTurnValue() {
@@ -85,7 +106,30 @@ public class DotsandBoxes {
 
     public static int changeTurnValue() {
         turn = -turn;
+        if (turn == 1) {
+            turnText.setText("It's " + player1Name + "'s turn");
+            turnText.setFillColor(p1Color);
+        } else if (turn == -1) {
+            turnText.setText("It's " + player2Name + "'s turn");
+            turnText.setFillColor(p2Color);
+        }
         return turn;
+    }
+
+    public static String getP1Name() {
+        return player1Name;
+    }
+
+    public static String getP2Name() {
+        return player2Name;
+    }
+
+    public static int getP1Points() {
+        return p1Points;
+    }
+
+    public static int getP2Points() {
+        return p2Points;
     }
 
     public static void setP1Points() {
@@ -99,6 +143,15 @@ public class DotsandBoxes {
     public static void setPointsText() {
         points1Text.setText("Points: " + p1Points);
         points2Text.setText("Points: " + p2Points);
+    }
+
+    public static GraphicsText getTurnText() {
+        return turnText;
+    }
+
+    public static void main(String[] args) {
+        new DotsandBoxes();
+       
     }
     
 }

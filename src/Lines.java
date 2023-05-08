@@ -12,6 +12,8 @@ public class Lines {
     
     private static Color p1Color = Color.RED;
     private static Color p2Color = Color.BLUE;
+
+    private static final int CANVAS_WIDTH = 300;
     
     public Lines(Point p1, Point p2){
         this.line = new Lines(p1, p2);
@@ -25,11 +27,21 @@ public class Lines {
                 dotslected((Ellipse)dot, canvas, boxeslist);
             };
             DotsandBoxes.setPointsText();
-            if (DotsandBoxes.boxeslist.size() == 0) {
-                canvas.removeAll();
-                GraphicsText win = new GraphicsText("you won", 10, 20);
-                win.setPosition(100, 100);
-                canvas.add(win);
+            if (DotsandBoxes.checkWin() == DotsandBoxes.getP1Points()) {
+                canvas.remove(DotsandBoxes.getTurnText());
+                GraphicsText p1Win = new GraphicsText("Congrats " + DotsandBoxes.getP1Name() + ", you won!", 10, 20);
+                p1Win.setPosition(CANVAS_WIDTH/2 - p1Win.getWidth()/2, 350);
+                canvas.add(p1Win);
+            } else if (DotsandBoxes.checkWin() == DotsandBoxes.getP2Points()) {
+                canvas.remove(DotsandBoxes.getTurnText());
+                GraphicsText p2Win = new GraphicsText("Congrats " + DotsandBoxes.getP2Name() + ", you won!", 10, 20);
+                p2Win.setPosition(CANVAS_WIDTH/2 - p2Win.getWidth()/2, 350);
+                canvas.add(p2Win);
+            } else if (DotsandBoxes.checkWin() == 0) {
+                canvas.remove(DotsandBoxes.getTurnText());
+                GraphicsText draw = new GraphicsText("It's a draw!", 10, 20);
+                draw.setPosition(CANVAS_WIDTH/2 - draw.getWidth()/2, 350);
+                canvas.add(draw);
             }
         });
     }
@@ -37,7 +49,7 @@ public class Lines {
 
     public static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<boxes> boxeslist){
         dotListselected.add(dot);
-        dot.setFillColor(Color.RED);
+        dot.setFillColor(Color.GREEN);
         if (dotListselected.size() == 2){
             if (detection(dotListselected)){
                 drawline(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter(), canvas);

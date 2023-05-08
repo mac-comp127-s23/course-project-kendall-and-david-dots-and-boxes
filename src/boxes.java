@@ -1,15 +1,7 @@
 import edu.macalester.graphics.*;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.util.ArrayList;
-
-import javax.lang.model.util.ElementScanner14;
-import javax.security.auth.RefreshFailedException;
-import javax.sound.sampled.Port;
-
-import org.w3c.dom.events.Event;
-
 
 
 public class boxes {
@@ -37,12 +29,7 @@ public class boxes {
     
     private static void refreshdetectionlist(CanvasWindow canvas, boxes box){
         edu.macalester.graphics.Point p = Lines.linedetect;
-        // System.out.println(box.updetX);
-        // System.out.println(box.downdetX);
-        // System.out.println(box.leftdetX);
-        // System.out.println(box.rightdetX);
         if (p.equals(box.updetX)){
-            System.out.print("a"); //help for test, you can ignore or delete it
             addelement(box);
         }
         if (p.equals(box.downdetX)){
@@ -50,32 +37,11 @@ public class boxes {
             addelement(box);
         }
         if (p.equals(box.leftdetX)){
-            System.out.print("c");
             addelement(box);
         }
         if (p.equals(box.rightdetX)){
-            System.out.print("d");
             addelement(box);
         }
-        // if (canvas.getElementAt(box.updetX,box.updetY)!= null){
-        //     System.out.print(1);
-        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
-        // }
-
-        // if (canvas.getElementAt(box.updetX,box.updetY)!= null){
-        //     System.out.print(1);
-        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
-        // }
-
-        // if (canvas.getElementAt(box.updetX,box.updetY) != null){
-        //     System.out.print(1);
-        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
-        // }
-
-        // if (canvas.getElementAt(box.updetX,box.updetY) != null){
-        //     System.out.print(1);
-        //     detectionlList.add(canvas.getElementAt(box.updetX,box.updetY));
-        // }
     }
 
     private static void addelement(boxes box){
