@@ -10,7 +10,7 @@ public class DotsandBoxes {
     private static final int CANVAS_HEIGHT = 500;
     private final double boxSize = 30;
     private double dotSize = 5;
-    private static int numberOfDots = 3;
+    private static int numberOfDots = 2;
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
     public static ArrayList<Boxes> boxesList = new ArrayList<>();
     public static CanvasWindow canvas;
@@ -73,19 +73,31 @@ public class DotsandBoxes {
         Lines.clickonboard(canvas, dotsList, boxesList);
     }
 
-    
+    /**
+     * Read the name entered, representing the first player.
+     * @return a String
+     */
     public static String playerOneName() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Player 1's name: ");
         return scanner.nextLine();
     }
 
+    /**
+     * Read the name entered, representing the second player.
+     * @return a String
+     */
     public static String playerTwoName() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Player 2's name: ");
         return scanner.nextLine();
     }
 
+    /**
+     * Checks if the number of points is equal to the number of boxes, then returns
+     * the number of points of the player with more points.
+     * @return an int
+     */
     public static int checkWin() {
         if (p1Points + p2Points == (numberOfDots-1) * (numberOfDots-1)) {
             if (p1Points > p2Points) {
@@ -103,6 +115,11 @@ public class DotsandBoxes {
         return turn;
     }
 
+    /**
+     * Switches from one player's turn to the other and changes the text on the canvas
+     * to tell whose turn it is.
+     * @return an int
+     */
     public static int changeTurnValue() {
         turn = -turn;
         if (turn == 1) {
@@ -148,6 +165,9 @@ public class DotsandBoxes {
         return turnText;
     }
 
+    /**
+     * The main method, runs the Dots and Boxes game.
+     */
     public static void main(String[] args) {
         new DotsandBoxes();
        

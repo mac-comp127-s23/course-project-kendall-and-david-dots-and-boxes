@@ -28,9 +28,7 @@ public class Boxes{
     /**
      * Accept the point from the user input, and match the point with every detection point of every box.
      * If it matches, make the length of the detection list extend 1.
-     */
-
-     
+     */     
     private static void refreshdetectionlist(CanvasWindow canvas, Boxes box){
         edu.macalester.graphics.Point p = Lines.linedetect;
         if (p.equals(box.updetX)){
