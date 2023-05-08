@@ -17,3 +17,8 @@ Names of the team members: Zhaolong Deng, Kendall Sullivan
 - Kilt-graphics API and associated edu.macalester.graphics packages
 
 - External pictures to indicate the filled boxes (e.g. letters)
+
+# Societal Impact
+- Our code probably would not work for anyone with a disability that hinders their sight or touch because we only wrote the code to work with mouse clicks and looking at the canvas to see what you are doing.
+- We don't see our project being used for malicious situations because it is a very simple game and you cannot cheat at this game (without changing the code).
+- One unintended consequence is that the players can enter any name that they want, we don't have any censorship method, so someone could enter a harmful or inappropriate name.
