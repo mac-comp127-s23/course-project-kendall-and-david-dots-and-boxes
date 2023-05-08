@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 
-public class Boxes {
+public class Boxes{
     private final static double boxsize = 30;
     private edu.macalester.graphics.Point leftupcorner;
 
@@ -25,14 +25,18 @@ public class Boxes {
         this.detectionlList = new ArrayList<>();
     }
 
-    
+    /**
+     * Accept the point from the user input, and match the point with every detection point of every box.
+     * If it matches, make the length of the detection list extend 1.
+     */
+
+     
     private static void refreshdetectionlist(CanvasWindow canvas, Boxes box){
         edu.macalester.graphics.Point p = Lines.linedetect;
         if (p.equals(box.updetX)){
             addelement(box);
         }
         if (p.equals(box.downdetX)){
-            System.out.print("b");
             addelement(box);
         }
         if (p.equals(box.leftdetX)){
@@ -67,11 +71,13 @@ public class Boxes {
         return true;
     }
 
+    /**
+     * Run all over all the boxes and check which box's dection has been filled. If the box is filled, color the box.
+     */
     public static ArrayList<Boxes> boxshouldcolor(CanvasWindow canvas, ArrayList<Boxes> boxeslist){
         ArrayList<Boxes> boxesshouldcolor = new ArrayList<>();
         for(Boxes box : boxeslist){
             refreshdetectionlist(canvas, box);
-            System.out.println(box.getcolorlist());
             if (isFilled(box)){
                 DotsandBoxes.changeTurnValue();
                 boxesshouldcolor.add(box);
@@ -81,12 +87,19 @@ public class Boxes {
         return boxesshouldcolor;
     }
 
+    /**
+     * Delete the box from the boxes list, to avoid the box be colored again
+     */
     public static void deleteBox(ArrayList<Boxes> boxesList, ArrayList<Boxes> boxesList2) {
         for (Boxes box : boxesList2) {
             boxesList.remove(box);
         }
     }
 
+
+    /**
+     * Create a new rectangle for color and add it to the canvas
+     */
     public static void colorbox(ArrayList<Boxes> boxesshouldcolor, CanvasWindow canvas){
         if (boxesshouldcolor != null){
             for(Boxes box: boxesshouldcolor){

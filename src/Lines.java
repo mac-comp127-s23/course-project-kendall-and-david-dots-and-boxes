@@ -19,7 +19,13 @@ public class Lines {
         this.line = new Lines(p1, p2);
     }
 
-
+    /**
+     * @param canvas
+     * @param dots
+     * @param boxeslist
+     * 
+     * Get the response form keyboard press, and do detect each time after click.
+     */
     public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots, ArrayList<Boxes> boxeslist){    
         canvas.onClick(Event -> {
             GraphicsObject dot = canvas.getElementAt(Event.getPosition());
@@ -46,8 +52,14 @@ public class Lines {
         });
     }
 
-
-    public static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<Boxes> boxeslist){
+    /**
+     * @param dot
+     * @param canvas
+     * @param boxeslist
+     * 
+     * If the dot is selected to two, draw the line if they are in suitable condition
+     */
+    private static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<Boxes> boxeslist){
         dotListselected.add(dot);
         dot.setFillColor(Color.GREEN);
         if (dotListselected.size() == 2){
@@ -66,6 +78,14 @@ public class Lines {
 
     }
 
+    /**
+     * 
+     * @param p1
+     * @param p2
+     * @param canvas
+     * 
+     * Accept two points and draw the line by user's turn
+     */
     private static void drawline(Point p1, Point p2, CanvasWindow canvas){
         Line line= new Line(p1, p2);
         if (DotsandBoxes.getTurnValue() == 1) {
@@ -79,6 +99,13 @@ public class Lines {
         canvas.draw();
         linedetect = new Point(line.getCenter().getX(), line.getCenter().getY());
     }
+
+    /**
+     * 
+     * @param dotlist
+     * @return
+     * The method use for detecting box distance
+     */
 
     private static boolean detection(ArrayList<Ellipse> dotlist){
         double xcord1 = dotListselected.get(0).getX();
