@@ -20,7 +20,7 @@ public class Lines {
     }
 
 
-    public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots, ArrayList<boxes> boxeslist){    
+    public static void clickonboard(CanvasWindow canvas, ArrayList<Ellipse> dots, ArrayList<Boxes> boxeslist){    
         canvas.onClick(Event -> {
             GraphicsObject dot = canvas.getElementAt(Event.getPosition());
             if(dot instanceof Ellipse){
@@ -47,15 +47,15 @@ public class Lines {
     }
 
 
-    public static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<boxes> boxeslist){
+    public static void dotslected(Ellipse dot, CanvasWindow canvas, ArrayList<Boxes> boxeslist){
         dotListselected.add(dot);
         dot.setFillColor(Color.GREEN);
         if (dotListselected.size() == 2){
             if (detection(dotListselected)){
                 drawline(dotListselected.get(0).getCenter(), dotListselected.get(1).getCenter(), canvas);
-                ArrayList<boxes> boxshouldcolor = new ArrayList<>();
-                boxshouldcolor = boxes.boxshouldcolor(canvas, boxeslist);
-                boxes.colorbox(boxshouldcolor,canvas);
+                ArrayList<Boxes> boxshouldcolor = new ArrayList<>();
+                boxshouldcolor = Boxes.boxshouldcolor(canvas, boxeslist);
+                Boxes.colorbox(boxshouldcolor,canvas);
             }
             for (Ellipse p: dotListselected){
                 p.setFillColor(Color.WHITE);

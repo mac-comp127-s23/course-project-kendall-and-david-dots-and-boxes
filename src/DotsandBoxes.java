@@ -8,11 +8,11 @@ import java.awt.Color;
 public class DotsandBoxes {
     private static final int CANVAS_WIDTH = 300;
     private static final int CANVAS_HEIGHT = 500;
-    private final double boxsize = 30;
-    private double dotsize = 5;
-    private static int numberofdots = 2; // 6
+    private final double boxSize = 30;
+    private double dotSize = 5;
+    private static int numberOfDots = 3;
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
-    public static ArrayList<boxes> boxeslist = new ArrayList<>();
+    public static ArrayList<Boxes> boxesList = new ArrayList<>();
     public static CanvasWindow canvas;
 
     private static int turn = 1;
@@ -24,7 +24,6 @@ public class DotsandBoxes {
 
     private static Color p1Color = Color.RED;
     private static Color p2Color = Color.BLUE;
-
 
     private static String player1Name = playerOneName();
     private static String player2Name = playerTwoName();
@@ -60,18 +59,18 @@ public class DotsandBoxes {
         turnText.setFillColor(p1Color);
         canvas.add(turnText);
         
-        for (int i = 0; i < numberofdots; i++ ){
-            for (int j = 0; j < numberofdots ; j++){
-                Ellipse dots = new Ellipse((CANVAS_WIDTH-(numberofdots-1)*boxsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j, dotsize, dotsize);
+        for (int i = 0; i < numberOfDots; i++ ){
+            for (int j = 0; j < numberOfDots ; j++){
+                Ellipse dots = new Ellipse((CANVAS_WIDTH-(numberOfDots-1)*boxSize)/2+boxSize * i, CANVAS_HEIGHT/5+boxSize * j, dotSize, dotSize);
                 dotsList.add(dots);
                 canvas.add(dots);
-                if (i < numberofdots - 1 && j < numberofdots - 1) {
-                    boxes box = new boxes(canvas, (CANVAS_WIDTH-(numberofdots-1)*boxsize+dotsize)/2+boxsize * i, CANVAS_HEIGHT/5+boxsize * j + dotsize/2, boxsize, boxsize);
-                    boxeslist.add(box);
+                if (i < numberOfDots - 1 && j < numberOfDots - 1) {
+                    Boxes box = new Boxes(canvas, (CANVAS_WIDTH-(numberOfDots-1)*boxSize+dotSize)/2+boxSize * i, CANVAS_HEIGHT/5+boxSize * j + dotSize/2, boxSize, boxSize);
+                    boxesList.add(box);
                 }
             }
         }
-        Lines.clickonboard(canvas, dotsList, boxeslist);
+        Lines.clickonboard(canvas, dotsList, boxesList);
     }
 
     
@@ -88,7 +87,7 @@ public class DotsandBoxes {
     }
 
     public static int checkWin() {
-        if (p1Points + p2Points == (numberofdots-1) * (numberofdots-1)) {
+        if (p1Points + p2Points == (numberOfDots-1) * (numberOfDots-1)) {
             if (p1Points > p2Points) {
                 return p1Points;
             } else if (p1Points < p2Points) {
@@ -97,7 +96,7 @@ public class DotsandBoxes {
                 return p1Points - p2Points;
             }
         }
-        return 1;
+        return 10000;
     }
 
     public static int getTurnValue() {

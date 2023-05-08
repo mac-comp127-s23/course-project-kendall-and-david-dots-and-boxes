@@ -4,19 +4,18 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 
-public class boxes {
+public class Boxes {
     private final static double boxsize = 30;
     private edu.macalester.graphics.Point leftupcorner;
 
     private edu.macalester.graphics.Point updetX, downdetX, leftdetX, rightdetX, rightdowncorner;
-
 
     private ArrayList<Object> detectionlList;
     
     private static Color p1Color = Color.RED;
     private static Color p2Color = Color.BLUE;
 
-    public boxes(CanvasWindow canvas, double x, double y, double width, double height) {
+    public Boxes(CanvasWindow canvas, double x, double y, double width, double height) {
         this.leftupcorner = new edu.macalester.graphics.Point(x, y);
         this.updetX = new edu.macalester.graphics.Point(x + width/2, y) ;
         this.downdetX = new edu.macalester.graphics.Point(x + width/2, y + height);
@@ -27,7 +26,7 @@ public class boxes {
     }
 
     
-    private static void refreshdetectionlist(CanvasWindow canvas, boxes box){
+    private static void refreshdetectionlist(CanvasWindow canvas, Boxes box){
         edu.macalester.graphics.Point p = Lines.linedetect;
         if (p.equals(box.updetX)){
             addelement(box);
@@ -44,7 +43,7 @@ public class boxes {
         }
     }
 
-    private static void addelement(boxes box){
+    private static void addelement(Boxes box){
         box.getcolorlist().add("1");
     }
 
@@ -61,16 +60,16 @@ public class boxes {
     }
     
 
-    private static boolean isFilled(boxes box) {
+    private static boolean isFilled(Boxes box) {
         if(box.getcolorlist().size()!=4){
             return false;
         }
         return true;
     }
 
-    public static ArrayList<boxes> boxshouldcolor(CanvasWindow canvas, ArrayList<boxes> boxeslist){
-        ArrayList<boxes> boxesshouldcolor = new ArrayList<>();
-        for(boxes box : boxeslist){
+    public static ArrayList<Boxes> boxshouldcolor(CanvasWindow canvas, ArrayList<Boxes> boxeslist){
+        ArrayList<Boxes> boxesshouldcolor = new ArrayList<>();
+        for(Boxes box : boxeslist){
             refreshdetectionlist(canvas, box);
             System.out.println(box.getcolorlist());
             if (isFilled(box)){
@@ -82,15 +81,15 @@ public class boxes {
         return boxesshouldcolor;
     }
 
-    public static void deleteBox(ArrayList<boxes> boxesList, ArrayList<boxes> boxesList2) {
-        for (boxes box : boxesList2) {
+    public static void deleteBox(ArrayList<Boxes> boxesList, ArrayList<Boxes> boxesList2) {
+        for (Boxes box : boxesList2) {
             boxesList.remove(box);
         }
     }
 
-    public static void colorbox(ArrayList<boxes> boxesshouldcolor, CanvasWindow canvas){
+    public static void colorbox(ArrayList<Boxes> boxesshouldcolor, CanvasWindow canvas){
         if (boxesshouldcolor != null){
-            for(boxes box: boxesshouldcolor){
+            for(Boxes box: boxesshouldcolor){
                 edu.macalester.graphics.Point leftupcorner = box.getleftupcorner();
                 Rectangle colorbox = new Rectangle(leftupcorner.getX(), leftupcorner.getY(), boxsize, boxsize);
                 if (DotsandBoxes.getTurnValue() == 1) {
@@ -103,7 +102,7 @@ public class boxes {
                 canvas.add(colorbox);
                 
             }
-        deleteBox(DotsandBoxes.boxeslist, boxesshouldcolor);
+        deleteBox(DotsandBoxes.boxesList, boxesshouldcolor);
         boxesshouldcolor.clear();
         }
     }
