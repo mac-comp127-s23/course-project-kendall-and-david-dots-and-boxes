@@ -8,7 +8,7 @@ public class Boxes{
     private final static double boxsize = 30;
     private edu.macalester.graphics.Point leftupcorner;
 
-    private edu.macalester.graphics.Point updetX, downdetX, leftdetX, rightdetX, rightdowncorner;
+    private edu.macalester.graphics.Point updetX, downdetX, leftdetX, rightdetX;
 
     private ArrayList<Object> detectionlList;
     

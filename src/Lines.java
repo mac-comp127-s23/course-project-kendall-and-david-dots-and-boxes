@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Lines {
-    private Lines line;
     public final static double boxsize = 30;
     public static CanvasWindow canvas;
     private static ArrayList<Ellipse> dotListselected = new ArrayList<>();
@@ -14,6 +13,7 @@ public class Lines {
     private static Color p2Color = Color.BLUE;
 
     private static final int CANVAS_WIDTH = 300;
+    private Lines line;
     
     public Lines(Point p1, Point p2){
         this.line = new Lines(p1, p2);
