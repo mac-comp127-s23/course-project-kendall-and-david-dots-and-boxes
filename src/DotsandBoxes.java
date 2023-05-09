@@ -10,7 +10,7 @@ public class DotsandBoxes {
     private static final int CANVAS_HEIGHT = 500;
     private final double boxSize = 30;
     private double dotSize = 5;
-    private static int numberOfDots = 2;
+    private static int numberOfDots = 6;
     public static ArrayList<Ellipse> dotsList = new ArrayList<>();
     public static ArrayList<Boxes> boxesList = new ArrayList<>();
     public static CanvasWindow canvas;

@@ -57,11 +57,9 @@ public class Boxes{
         return leftupcorner;
     }
 
-    private edu.macalester.graphics.Point getrighdowncorner(){
-        return rightdowncorner;
-    }
-    
-
+    /**
+     * If the box's detectionlist's length is equal to 4, which means the box is filled, return true
+     */
     private static boolean isFilled(Boxes box) {
         if(box.getcolorlist().size()!=4){
             return false;
